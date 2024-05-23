@@ -24,8 +24,8 @@ wss.on('connection', async (ws) => {
         let event: EventTypes = JSON.parse(data.toLocaleString());
 
         if (event.type === EventType.VERIFY) {
-            const { user_id } = event.data;
-            const authorized = await verify(user_id);
+            const { user_id, session } = event.data;
+            const authorized = await verify({ user_id, session });
 
             if (!authorized) {
                 ws.send(JSON.stringify({
